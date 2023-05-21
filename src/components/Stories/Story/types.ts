@@ -1,6 +1,6 @@
 import { Interface } from "readline"
 
-export interface Data {
+export interface IStory {
   by: string
   descendants: number
   id: number
@@ -11,8 +11,8 @@ export interface Data {
   type: string
   url: string
   }
-  
+
   export type StoryProps = {
-    data:Data,
+    data:IStory,
     fromHomePage?:boolean,
   }

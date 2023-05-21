@@ -1,29 +1,29 @@
-import { useCallback, useEffect, useState } from "react";
-import { getComments } from "../utils/apis";
-import { SingleComment } from "../components/Comments/Comment/types";
+import {useCallback, useEffect, useState} from "react";
+import {getComments} from "../utils/apis";
+import {IComment} from "../components/Comments/Comment/types";
 
 const useCommentFetcher = (storyId: number) => {
-  const [commments, setComments] = useState<SingleComment[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+    const [comments, setComments] = useState<IComment[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
 
-  const fetchComments = useCallback(() => {
-    setIsLoading(true);
-    getComments(storyId)
-      .then((comments) => {
-        setComments(comments);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
-  }, [storyId]);
+    const fetchComments = useCallback(() => {
+        setIsLoading(true);
+        getComments(storyId)
+            .then((comments) => {
+                setComments(comments);
+                setIsLoading(false);
+            })
+            .catch(() => {
+                setIsLoading(false);
+            });
+    }, [storyId]);
 
-  useEffect(() => {
-    fetchComments();
-  }, [fetchComments]);
+    useEffect(() => {
+        fetchComments();
+    }, [fetchComments]);
 
-  return { isLoading, commments, fetchComments };
+    return {isLoading, comments, fetchComments};
 };
 
 export default useCommentFetcher;

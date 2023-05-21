@@ -1,33 +1,31 @@
-import { useState, useEffect, useCallback } from 'react';
-import { getStories } from '../utils/apis';
-import { Data } from '../components/Stories/Story/types';
+import {useState, useEffect} from 'react';
+import {getStories} from '../utils/apis';
+import {IStory} from '../components/Stories/Story/types';
 
 const useDataFetcher = () => {
-  const [stories, setStories] = useState<Data[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+    const [stories, setStories] = useState<IStory[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
-  const fetchStories = useCallback(() => {
-    setIsLoading(true);
-    getStories()
-      .then((stories) => {
-        setStories(stories);
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-      })
-  },[])
+    const fetchStories = () => {
+        setIsLoading(true);
+        getStories()
+            .then((stories) => {
+                setStories(stories.sort((a: IStory, b: IStory) => b.time - a.time));
+                setIsLoading(false);
+            })
+            .catch(() => {
+                setIsLoading(false);
+            })
+    }
 
-   useEffect(() => {
-    fetchStories()
-   },[fetchStories])
-  useEffect(() => {
-    
-    setInterval(fetchStories, 60000);
-  }, [fetchStories]);
+    useEffect(() => {
+        fetchStories()
+        const interval = setInterval(fetchStories, 60000);
+        return () => clearInterval(interval);
+    }, [])
 
 
-  return { isLoading, stories,fetchStories };
+    return {isLoading, stories, fetchStories};
 };
 
 export default useDataFetcher;

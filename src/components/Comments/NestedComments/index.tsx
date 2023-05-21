@@ -1,14 +1,12 @@
-import { CommentProps } from "../Comment/types";
+import {CommentProps} from "../Comment/types";
+import Info from "../../Info";
 
-const NestedComments: React.FC<CommentProps> = ({ comment }) => {
-  return (
-    <div className="flex ml-10">
-      <div>
-        <span>by {comment.by}</span>
-        <p className="text-gray-700">{comment.text}</p>
-      </div>
-    </div>
-  );
+const NestedComments: React.FC<CommentProps> = ({comment}) => {
+    return (
+        <div className="flex ml-10">
+            <Info by={comment.by} time={comment.time} text={comment.text}/>
+        </div>
+    );
 };
 
 export default NestedComments;

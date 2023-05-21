@@ -1,5 +1,4 @@
-
-export interface SingleComment {
+export interface IComment {
     by: string
     id: number
     kids: number[]
@@ -7,7 +6,8 @@ export interface SingleComment {
     text: string
     time: number
     type: string
-  }
+}
+
 export type CommentProps = {
-    comment:SingleComment
+    comment: IComment
 }
